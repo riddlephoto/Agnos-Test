@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Footer = ({ visible, allVisible, handleIndex }) => {
+const Footer = ({ visible, allVisible, handleIndex, buttonDes }) => {
   const handleEnable = () => {
     if (visible !== '' || allVisible) {
       return true;
@@ -14,14 +14,14 @@ const Footer = ({ visible, allVisible, handleIndex }) => {
         isEnable ? 'bg-button-dark-blue' : 'bg-button-grey'
       }`}
       disabled={!isEnable}
-      onClick={() => handleIndex()}
+      onClick={buttonDes === 'ต่อไป' ? handleIndex : null}
     >
       <p
-        className={` font-semibold text-[30px] font-anuphan py-2  ${
+        className={` font-semibold text-[24px] md:text-[30px] font-anuphan py-2  ${
           isEnable ? 'text-white' : 'text-light-grey'
         }`}
       >
-        ต่อไป
+        {buttonDes}
       </p>
     </button>
   );

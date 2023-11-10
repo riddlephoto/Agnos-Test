@@ -11,7 +11,7 @@ const App = () => {
   ];
   return (
     <>
-      <Navbar />
+      <Navbar progress={index} length={components.length} />
       <div>{components[index]}</div>
     </>
   );

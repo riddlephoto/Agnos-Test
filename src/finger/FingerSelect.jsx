@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
-import AddInfo from '../components/AddInfo';
+import React, { useState, useEffect } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
+import { allButton, defaultFinger } from '../assets/fingers';
+import { Footer, AddInfo, CustomButtonFinger, Inquire } from '../components';
+import { arrayTop, arrayMid, arrayLow } from './fingerProps';
 //prettier-ignore
-import { defaultFinger, topPortion, midPortion, lowPortion } from '../assets/finger';
+import {topPortion, midPortion, lowPortion } from '../assets/fingers';
 //prettier-ignore
-import { topPortion_active, midPortion_active, lowPortion_active, allButton } from '../assets/finger';
-import Footer from '../components/Footer';
+import { topPortion_active, midPortion_active, lowPortion_active} from '../assets/fingers';
 
 const FingerSelect = ({ handleIndex }) => {
-  const [fingVis, setfingVis] = useState('');
-  const [others, setOthers] = useState(false);
+
+  const intFingVis = localStorage.getItem('fingVis') || '';
+  const intOthers = JSON.parse(localStorage.getItem('others') || false);
+
+  const [fingVis, setfingVis] = useState(intFingVis);
+  const [others, setOthers] = useState(intOthers);
+  const [toggleInquire, setToggleInquire] = useState(false);
 
   const handlefingerClick = (fingVis) => {
     setfingVis(fingVis);
@@ -21,19 +27,32 @@ const FingerSelect = ({ handleIndex }) => {
     setfingVis('');
   };
 
+  useEffect(() => {
+    localStorage.setItem('fingVis', fingVis);
+    localStorage.setItem('others', others);
+  }, [fingVis, others]);
+
   return (
     <div className="w-full flex justify-center my-10">
-      <div className="flex flex-col items-center relative">
-        <p className="font-semibold font-anuphan text-[30px] text-main-grey mt-10">
+      <div className="flex flex-col items-center">
+        <p className="font-semibold font-anuphan text-[24px] md:text-[30px] text-main-grey mt-10">
           จุดไหนที่คุณปวดนิ้วมากที่สุด?
         </p>
         <button
-          className="absolute my-10 left-0 rounded-full shadow-lg p-3"
+          className="absolute mt-10 ml-2 md:my-10 left-0 rounded-full shadow-lg p-3"
           onClick={() => handleIndex()}
         >
-          <BsArrowLeft size={20} />
+          <BsArrowLeft className='text-[12px] md:text-[20px]' />
         </button>
-        <AddInfo />
+        <AddInfo handleInquire={() => setToggleInquire(!toggleInquire)} />
+        {toggleInquire && (
+          <div className="w-[72%] flex justify-center absolute z-[999]">
+            <Inquire
+              handleInquire={() => setToggleInquire(!toggleInquire)}
+              description="เลือกแนวข้อนิ้วที่ปวดที่สุด"
+            />
+          </div>
+        )}
         <div className="relative">
           <img
             src={defaultFinger}
@@ -41,22 +60,17 @@ const FingerSelect = ({ handleIndex }) => {
             className="my-6 z-[-1]"
           />
           <div className="w-full h-full absolute top-0">
-            <button
-              className="absolute w-[6%] h-[3.5%] top-[25%] left-[21%] z-[2]"
-              onClick={() => handlefingerClick('Top')}
-            />
-            <button
-              className="absolute w-[6%] h-[3.5%] top-[15%] left-[32.5%] z-[2]"
-              onClick={() => handlefingerClick('Top')}
-            />
-            <button
-              className="absolute w-[6%] h-[3.5%] top-[11%] left-[43.5%] z-[2]"
-              onClick={() => handlefingerClick('Top')}
-            />
-            <button
-              className="absolute w-[6%] h-[3.5%] top-[13.2%] left-[55.7%] z-[2]"
-              onClick={() => handlefingerClick('Top')}
-            />
+            {arrayTop.map((props, key) => (
+              <CustomButtonFinger
+                topPos={props.topPos}
+                leftPos={props.leftPos}
+                width="6%"
+                height="3.5%"
+                handleClick={handlefingerClick}
+                part="Top"
+                key={key}
+              />
+            ))}
             {fingVis === 'Top' && (
               <>
                 <img src={topPortion} alt="top_portion" className="my-6" />
@@ -67,26 +81,17 @@ const FingerSelect = ({ handleIndex }) => {
                 />
               </>
             )}
-            <button
-              className="absolute w-[6%] h-[3.5%] top-[32.3%] left-[24%] z-[2]"
-              onClick={() => handlefingerClick('Mid')}
-            />
-            <button
-              className="absolute w-[6.5%] h-[4%] top-[24.5%] left-[33.6%] z-[2]"
-              onClick={() => handlefingerClick('Mid')}
-            />
-            <button
-              className="absolute w-[6%] h-[3.5%] top-[21.4%] left-[44.5%] z-[2]"
-              onClick={() => handlefingerClick('Mid')}
-            />
-            <button
-              className="absolute w-[7%] h-[3.5%] top-[22.8%] left-[55%] z-[2]"
-              onClick={() => handlefingerClick('Mid')}
-            />
-            <button
-              className="absolute w-[5.5%] h-[3.5%] top-[41.8%] left-[76.5%] z-[2]"
-              onClick={() => handlefingerClick('Mid')}
-            />
+            {arrayMid.map((props, key) => (
+              <CustomButtonFinger
+                topPos={props.topPos}
+                leftPos={props.leftPos}
+                width={props.width}
+                height={props.height}
+                handleClick={handlefingerClick}
+                part="Mid"
+                key={key}
+              />
+            ))}
             {fingVis === 'Mid' && (
               <>
                 <img src={midPortion} alt="mid_portion" className="my-6" />
@@ -97,26 +102,17 @@ const FingerSelect = ({ handleIndex }) => {
                 />
               </>
             )}
-            <button
-              className="absolute w-[7.5%] h-[5%] top-[40.5%] left-[28%] z-[2]"
-              onClick={() => handlefingerClick('Low')}
-            />
-            <button
-              className="absolute w-[7.5%] h-[4.7%] top-[37.5%] left-[36%] z-[2]"
-              onClick={() => handlefingerClick('Low')}
-            />
-            <button
-              className="absolute w-[7.5%] h-[4%] top-[36%] left-[45%] z-[2]"
-              onClick={() => handlefingerClick('Low')}
-            />
-            <button
-              className="absolute w-[8%] h-[4%] top-[36%] left-[54%] z-[2]"
-              onClick={() => handlefingerClick('Low')}
-            />
-            <button
-              className="absolute w-[6.5%] h-[4.5%] top-[52.5%] left-[68.5%] z-[2]"
-              onClick={() => handlefingerClick('Low')}
-            />
+            {arrayLow.map((props, key) => (
+              <CustomButtonFinger
+                topPos={props.topPos}
+                leftPos={props.leftPos}
+                width={props.width}
+                height={props.height}
+                handleClick={handlefingerClick}
+                part="Low"
+                key={key}
+              />
+            ))}
             {fingVis === 'Low' && (
               <>
                 <img src={lowPortion} alt="low_portion" className="my-6" />
@@ -134,7 +130,7 @@ const FingerSelect = ({ handleIndex }) => {
             {others && <img src={allButton} alt="others" className="my-6" />}
           </div>
         </div>
-        <Footer visible={fingVis} allVisible={others} />
+        <Footer visible={fingVis} allVisible={others} buttonDes="เสร็จสิ้น" />
       </div>
     </div>
   );

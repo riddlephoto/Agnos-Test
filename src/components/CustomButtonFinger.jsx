@@ -1,14 +1,12 @@
 import React from 'react';
 
-const CustomButton = ({
+const CustomButtonFinger = ({
   topPos,
   leftPos,
   width,
   height,
   handleClick,
-  visible,
   part,
-  partActive,
 }) => {
   const buttonProperties = {
     top: `${topPos}`,
@@ -24,18 +22,8 @@ const CustomButton = ({
         onClick={() => handleClick(part)}
         style={buttonProperties}
       ></button>
-      {visible === part && (
-        <div className="relative my-6">
-          <img src={part} alt={part.slice(20, -4)} />
-          <img
-            src={partActive}
-            alt={partActive.slice(20, -4)}
-            className=" absolute top-0"
-          />
-        </div>
-      )}
     </>
   );
 };
 
-export default CustomButton;
+export default CustomButtonFinger;

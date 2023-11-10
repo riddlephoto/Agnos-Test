@@ -11,16 +11,20 @@ export default {
         'button-blue': 'rgba(0, 133, 255, 0.13);',
         'button-dark-blue': 'rgb(32, 110, 209)',
         'button-grey': 'rgb(235, 235, 235)',
+        'bar-yellow': 'rgb(244, 210, 133)',
       },
       fontFamily: {
         anuphan: ['Anuphan'],
       },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
+    },
+    keyframes: {
+      fadeIn: {
+        '0%': { opacity: '0' },
+        '100%': { opacity: '1' },
       },
+    },
+    animation: {
+      fadeIn: 'fadeIn 0.5s ease-in-out',
     },
   },
   plugins: [],
