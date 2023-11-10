@@ -5,7 +5,6 @@ import { arrayAbsProps } from './absProps';
 import { allButton } from '../assets/abdomen';
 
 const AbsSelect = ({ handleIndex }) => {
-
   const intVis = localStorage.getItem('visible') || '';
   const intAllVis = JSON.parse(localStorage.getItem('allVisible') || false);
 
@@ -43,7 +42,7 @@ const AbsSelect = ({ handleIndex }) => {
             />
           </div>
         )}
-        <div className="relative">
+        <div className="relative shadow-main-shadow rounded-[16px] mx-6">
           <img src={defaultAbs} alt="default_abs" className="my-6 z-[-1]" />
           <div className="w-full h-full absolute top-0">
             {arrayAbsProps.map((props, key) => (
@@ -80,12 +79,12 @@ const AbsSelect = ({ handleIndex }) => {
             )}
           </div>
         </div>
-        <Footer
-          visible={visible}
-          allVisible={allVisible}
-          handleIndex={handleIndex}
-          buttonDes="ต่อไป"
-        />
+          <Footer
+            visible={visible}
+            allVisible={allVisible}
+            handleIndex={handleIndex}
+            buttonDes="ต่อไป"
+          />
       </div>
     </div>
   );

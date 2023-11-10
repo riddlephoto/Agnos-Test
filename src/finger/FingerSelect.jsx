@@ -35,14 +35,16 @@ const FingerSelect = ({ handleIndex }) => {
   return (
     <div className="w-full flex justify-center my-10">
       <div className="flex flex-col items-center">
-        <p className="font-semibold font-anuphan text-[24px] md:text-[30px] text-main-grey mt-10">
+        <p
+          className="font-semibold font-anuphan text-[24px] md:text-[30px] text-main-grey mt-10"
+        >
           จุดไหนที่คุณปวดนิ้วมากที่สุด?
         </p>
         <button
-          className="absolute mt-10 ml-2 md:my-10 left-0 rounded-full shadow-lg p-3"
+          className="absolute mt-10 ml-4 md:my-10 left-0 md:left-[20%] xl:left-[27%] rounded-full shadow-lg p-3"
           onClick={() => handleIndex()}
         >
-          <BsArrowLeft className='text-[12px] md:text-[20px]' />
+          <BsArrowLeft className="text-[12px] md:text-[20px]" />
         </button>
         <AddInfo handleInquire={() => setToggleInquire(!toggleInquire)} />
         {toggleInquire && (
@@ -53,7 +55,7 @@ const FingerSelect = ({ handleIndex }) => {
             />
           </div>
         )}
-        <div className="relative">
+        <div className="relative shadow-main-shadow rounded-[16px] mx-6">
           <img
             src={defaultFinger}
             alt="default_finger"

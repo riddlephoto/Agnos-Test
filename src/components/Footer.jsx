@@ -9,21 +9,23 @@ const Footer = ({ visible, allVisible, handleIndex, buttonDes }) => {
 
   const isEnable = handleEnable();
   return (
-    <button
-      className={`flex justify-center w-1/2 py-2 px-4 rounded-[18px] ${
-        isEnable ? 'bg-button-dark-blue' : 'bg-button-grey'
-      }`}
-      disabled={!isEnable}
-      onClick={buttonDes === 'ต่อไป' ? handleIndex : null}
-    >
-      <p
-        className={` font-semibold text-[24px] md:text-[30px] font-anuphan py-2  ${
-          isEnable ? 'text-white' : 'text-light-grey'
+    <div className='flex justify-center w-full'>
+      <button
+        className={`w-full md:w-1/2 mx-6 py-2 px-4 rounded-[18px] mt-6 ${
+          isEnable ? 'bg-button-dark-blue' : 'bg-button-grey'
         }`}
+        disabled={!isEnable}
+        onClick={buttonDes === 'ต่อไป' ? handleIndex : null}
       >
-        {buttonDes}
-      </p>
-    </button>
+        <p
+          className={` font-semibold text-[24px] md:text-[30px] font-anuphan py-2  ${
+            isEnable ? 'text-white' : 'text-light-grey'
+          }`}
+        >
+          {buttonDes}
+        </p>
+      </button>
+    </div>
   );
 };
 
